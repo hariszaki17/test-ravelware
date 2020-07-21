@@ -1,0 +1,47 @@
+[
+  {
+    "_id": "A1",
+    "_availability": false,
+    "_parkedVehicle": {
+      "_policeNumber": "B 1234 KI",
+      "_color": "hitam",
+      "_type": "SUV",
+      "_baseCost": 15000
+    }
+  },
+  {
+    "_id": "A2",
+    "_availability": true,
+    "_parkedVehicle": null
+  },
+  {
+    "_id": "B1",
+    "_availability": true,
+    "_parkedVehicle": null
+  },
+  {
+    "_id": "B2",
+    "_availability": true,
+    "_parkedVehicle": null
+  },
+  {
+    "_id": "C1",
+    "_availability": true,
+    "_parkedVehicle": null
+  },
+  {
+    "_id": "C2",
+    "_availability": true,
+    "_parkedVehicle": null
+  },
+  {
+    "_id": "D1",
+    "_availability": true,
+    "_parkedVehicle": null
+  },
+  {
+    "_id": "D2",
+    "_availability": true,
+    "_parkedVehicle": null
+  }
+]
