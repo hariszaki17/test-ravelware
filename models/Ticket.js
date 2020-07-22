@@ -4,7 +4,7 @@ class Ticket {
     constructor(vehicle, parkingLot, checkIn, checkOut) {
         this._vehicle = vehicle;
         this._parkingLot = parkingLot;
-        this._policeNumber = this._vehicle.policeNumber;
+        this._policeNumber = this._vehicle.policeNumber.toUpperCase();
         this._parkingLotID = this._parkingLot.id;
         this._checkIn = checkIn;
         this._checkOut = checkOut || null;
@@ -45,7 +45,7 @@ class Ticket {
     }
 
     isDate(date) {
-        
+
     }
 
     calculateTotalCost() {
@@ -65,7 +65,7 @@ class Ticket {
 
     checkingOut() {
         this._checkOut = new Date();
-        this._totalCost = this.calculateTotalCost();
+        this._totalCost = Math.round(this.calculateTotalCost());
     }
 }
 

@@ -5,7 +5,6 @@ const ParkingLot = require('./ParkingLot');
 class Factory {
     //only from fs for plain json
     static createVehicle(listVehicle) {
-        console.log(listVehicle, 'HAIHAHIAHIH')
         let isArray = Array.isArray(listVehicle);
         !isArray ? listVehicle = [ listVehicle ] : null;
         let vehicles = [];
@@ -41,10 +40,8 @@ class Factory {
     }
 
     static createTicket(listTicket) {
-        console.log(listTicket, 'OUHISA')
         if (listTicket.length > 0) {
             let tickets = listTicket.map(el => new Ticket(this.createVehicle(el._vehicle), this.createParkingLot(el._parkingLot), el._checkIn, el._checkOut));
-            console.log(tickets, 'OLALALALAL')
             return tickets;
         }
         return []

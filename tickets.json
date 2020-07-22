@@ -79,5 +79,72 @@
     "_checkOut": "2020-07-22T01:28:04.103Z",
     "_hourlyCost": 4000,
     "_totalCost": 20000
+  },
+  {
+    "_vehicle": {
+      "_policeNumber": "B 9213 LO",
+      "_color": "hitam",
+      "_type": "SUV",
+      "_baseCost": 15000
+    },
+    "_parkingLot": {
+      "_id": "A2",
+      "_availability": true,
+      "_parkedVehicle": null
+    },
+    "_policeNumber": "B 9213 LO",
+    "_parkingLotID": "A2",
+    "_checkIn": "2020-07-22T04:17:30.048Z",
+    "_checkOut": "2020-07-22T04:19:49.795Z",
+    "_hourlyCost": 3000,
+    "_totalCost": 15000
+  },
+  {
+    "_vehicle": {
+      "_policeNumber": "B 0912 HY",
+      "_color": "hitam",
+      "_type": "SUV",
+      "_baseCost": 15000
+    },
+    "_parkingLot": {
+      "_id": "A2",
+      "_availability": false,
+      "_parkedVehicle": {
+        "_policeNumber": "B 0912 HY",
+        "_color": "hitam",
+        "_type": "SUV",
+        "_baseCost": 15000
+      }
+    },
+    "_policeNumber": "B 0912 HY",
+    "_parkingLotID": "A2",
+    "_checkIn": "2020-07-22T04:44:02.223Z",
+    "_checkOut": null,
+    "_hourlyCost": 3000,
+    "_totalCost": 15000
+  },
+  {
+    "_vehicle": {
+      "_policeNumber": "F 2213 IY",
+      "_color": "hitam",
+      "_type": "SUV",
+      "_baseCost": 15000
+    },
+    "_parkingLot": {
+      "_id": "B1",
+      "_availability": false,
+      "_parkedVehicle": {
+        "_policeNumber": "F 2213 IY",
+        "_color": "hitam",
+        "_type": "SUV",
+        "_baseCost": 15000
+      }
+    },
+    "_policeNumber": "F 2213 IY",
+    "_parkingLotID": "B1",
+    "_checkIn": "2020-07-22T05:26:52.410Z",
+    "_checkOut": null,
+    "_hourlyCost": 3000,
+    "_totalCost": 15000
   }
 ]

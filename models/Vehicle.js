@@ -1,7 +1,7 @@
 class Vehicle {
     constructor(policeNumber, color, type, baseCost) {
-        this._policeNumber = policeNumber;
-        this._color = color;
+        this._policeNumber = policeNumber.toUpperCase();
+        this._color = color.toLowerCase();
         this._type = type;
         this._baseCost = baseCost;
     }

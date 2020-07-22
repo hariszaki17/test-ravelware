@@ -11,13 +11,23 @@
   },
   {
     "_id": "A2",
-    "_availability": true,
-    "_parkedVehicle": null
+    "_availability": false,
+    "_parkedVehicle": {
+      "_policeNumber": "B 0912 HY",
+      "_color": "hitam",
+      "_type": "SUV",
+      "_baseCost": 15000
+    }
   },
   {
     "_id": "B1",
-    "_availability": true,
-    "_parkedVehicle": null
+    "_availability": false,
+    "_parkedVehicle": {
+      "_policeNumber": "F 2213 IY",
+      "_color": "hitam",
+      "_type": "SUV",
+      "_baseCost": 15000
+    }
   },
   {
     "_id": "B2",

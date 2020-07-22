@@ -1,24 +1,24 @@
 const Model = require('../models/Model')
 
 class Controller {
-    static createTicket (req, res) {
+    static createTicket (req, res, next) {
         console.log(req.body)
         Model.inputCheckIn(req.body)
         .then(result => {
             return res.status(201).json(result)
         })
         .catch(err => {
-            console.log(err)
+            return next(err)
         })
     }
 
-    static checkOutTicket (req, res) {
+    static checkOutTicket (req, res, next) {
         Model.inputCheckOut(req.body)
         .then(result => {
             return res.status(200).json(result)
         })
         .catch(err => {
-            console.log(err)
+            return next(err)
         })
     }
 

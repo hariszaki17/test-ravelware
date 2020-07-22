@@ -16,5 +16,23 @@
     "_color": "hitam",
     "_type": "MPV",
     "_baseCost": 20000
+  },
+  {
+    "_policeNumber": "B 9213 LO",
+    "_color": "hitam",
+    "_type": "SUV",
+    "_baseCost": 15000
+  },
+  {
+    "_policeNumber": "B 0912 HY",
+    "_color": "hitam",
+    "_type": "SUV",
+    "_baseCost": 15000
+  },
+  {
+    "_policeNumber": "F 2213 IY",
+    "_color": "hitam",
+    "_type": "SUV",
+    "_baseCost": 15000
   }
 ]
