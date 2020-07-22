@@ -7,3 +7,5 @@ let duration = moment.duration(end.diff(start))
 console.log(Math.floor(duration.asHours()))
 
 console.log(moment(new Date()).format('YYYY-MM-DD hh:mm'))
+
+console.log(new Date('null'))

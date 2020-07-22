@@ -1,0 +1,83 @@
+[
+  {
+    "_vehicle": {
+      "_policeNumber": "B 1234 KI",
+      "_color": "hitam",
+      "_type": "SUV",
+      "_baseCost": 15000
+    },
+    "_parkingLot": {
+      "_id": "A1",
+      "_availability": false,
+      "_parkedVehicle": {
+        "_policeNumber": "B 1234 KI",
+        "_color": "hitam",
+        "_type": "SUV",
+        "_baseCost": 15000
+      }
+    },
+    "_policeNumber": "B 1234 KI",
+    "_parkingLotID": "A1",
+    "_checkIn": "2020-07-21T23:55:46.633Z",
+    "_checkOut": null,
+    "_hourlyCost": 3000,
+    "_totalCost": 15000
+  },
+  {
+    "_vehicle": {
+      "_policeNumber": "B 4312 PO",
+      "_color": "silver",
+      "_type": "MPV",
+      "_baseCost": 20000
+    },
+    "_parkingLot": {
+      "_id": "A2",
+      "_availability": true,
+      "_parkedVehicle": null
+    },
+    "_policeNumber": "B 4312 PO",
+    "_parkingLotID": "A2",
+    "_checkIn": "2020-07-21T23:56:01.944Z",
+    "_checkOut": "2020-07-22T00:42:59.010Z",
+    "_hourlyCost": 4000,
+    "_totalCost": 20000
+  },
+  {
+    "_vehicle": {
+      "_policeNumber": "B 4312 PO",
+      "_color": "silver",
+      "_type": "MPV",
+      "_baseCost": 20000
+    },
+    "_parkingLot": {
+      "_id": "A2",
+      "_availability": true,
+      "_parkedVehicle": null
+    },
+    "_policeNumber": "B 4312 PO",
+    "_parkingLotID": "A2",
+    "_checkIn": "2020-07-22T00:49:49.204Z",
+    "_checkOut": "2020-07-22T00:55:24.762Z",
+    "_hourlyCost": 4000,
+    "_totalCost": 20000
+  },
+  {
+    "_vehicle": {
+      "_policeNumber": "B 2121 ZA",
+      "_color": "hitam",
+      "_type": "MPV",
+      "_baseCost": 20000
+    },
+    "_parkingLot": {
+      "_id": "A2",
+      "_availability": true,
+      "_parkedVehicle": null
+    },
+    "_policeNumber": "B 2121 ZA",
+    "_parkingLotID": "A2",
+    "_checkIn": "2020-07-22T01:26:46.937Z",
+    "_checkOut": "2020-07-22T01:28:04.103Z",
+    "_hourlyCost": 4000,
+    "_totalCost": 20000
+  }
+]

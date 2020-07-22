@@ -3,24 +3,56 @@ const Ticket = require('./Ticket');
 const ParkingLot = require('./ParkingLot');
 
 class Factory {
+    //only from fs for plain json
     static createVehicle(listVehicle) {
+        console.log(listVehicle, 'HAIHAHIAHIH')
+        let isArray = Array.isArray(listVehicle);
+        !isArray ? listVehicle = [ listVehicle ] : null;
         let vehicles = [];
         listVehicle.forEach(el => {
-            if (el.type === 'SUV') {
+            if (el._type === 'SUV') {
                 vehicles.push(new SUV(el._policeNumber, el._color));
-            } else if (el.type === 'MPV') {
+            } else if (el._type === 'MPV') {
                 vehicles.push(new MPV(el._policeNumber, el._color));
             }
         })
-        return vehicles;
+        if (!isArray) {
+            return vehicles[0]
+        } else {
+            return vehicles
+        }
     }
 
+    static createParkingLot(listParkingLot) {
+        let isArray = Array.isArray(listParkingLot);
+        !isArray ? listParkingLot = [ listParkingLot ] : null;
+        let parkingLot = listParkingLot.map(el => {
+            if (el._parkedVehicle) {
+                return new ParkingLot(el._id, el._availability, this.createVehicle(el._parkedVehicle))
+            } else {
+                return new ParkingLot(el._id, el._availability)
+            }
+        })
+        if (!isArray) {
+            return parkingLot[0]
+        } else {
+            return parkingLot
+        }
+    }
+
+    static createTicket(listTicket) {
+        console.log(listTicket, 'OUHISA')
+        if (listTicket.length > 0) {
+            let tickets = listTicket.map(el => new Ticket(this.createVehicle(el._vehicle), this.createParkingLot(el._parkingLot), el._checkIn, el._checkOut));
+            console.log(tickets, 'OLALALALAL')
+            return tickets;
+        }
+        return []
+    }
+
+    //outside fs for object
     static createSingleVehicle(data) {
-        if (data._type === 'SUV') {
-            return new SUV(data._policeNumber, data._color);
-        } else if (data._type === 'MPV') {
-            return new MPV(data._policeNumber, data._color);
-        } else if (data.type === 'SUV') {
+        if (data.type === 'SUV') {
             return new SUV(data.policeNumber, data.color);
         } else if (data.type === 'MPV') {
             return new MPV(data.policeNumber, data.color);
@@ -28,32 +60,13 @@ class Factory {
     }
 
     static createSingleTicket(data) {
-        return new Ticket(this.createSingleVehicle(data._vehicle), this.createSingleParkingLot(data._parkingLot), data._checkIn, data._checkOut)
+        return new Ticket(this.createSingleVehicle(data.vehicle), this.createSingleParkingLot(data.parkingLot), data.checkIn, data.checkOut)
     }
 
     static createSingleParkingLot(data) {
-        return new ParkingLot(data._id, data._availability, this.createSingleVehicle(data._parkedVehicle))
+        return new ParkingLot(data.id, data.availability, this.createSingleVehicle(data.parkedVehicle))
     }
 
-    static createParkingLot(listParkingLot) {
-        let parkingLot = listParkingLot.map(el => {
-            if (el._parkedVehicle) {
-                return new ParkingLot(el._id, el._availability, this.createSingleVehicle(el._parkedVehicle))
-            } else {
-                return new ParkingLot(el._id, el._availability)
-            }
-        })
-        console.log(parkingLot)
-        return parkingLot;
-    }
-
-    static createTicket(listTicket) {
-        if (listTicket[0]) {
-            let tickets = listTicket.map(el => new Ticket(this.createSingleVehicle(el._vehicle), this.createParkingLot(el._parkingLot), el._checkIn, el._checkOut));
-            return tickets;
-        }
-        return []
-    }
 }
 
 module.exports = Factory

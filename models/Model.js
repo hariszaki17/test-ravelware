@@ -1,20 +1,11 @@
-const fs = require('fs');
 const Factory = require('./Factory');
-const { rejects } = require('assert');
+const File = require('./File')
+const moment = require('moment')
 
 class Model {
-    static writeData(path, data) {
-        fs.writeFileSync(path, data);
-    }
-
-    static readData(path) {
-        let jsonList = fs.readFileSync(path, 'utf-8');
-        let data = JSON.parse(jsonList);
-        return data;
-    }
-
     static vehicleExistValidation(vehicle) {
-        let data = this.readData('./vehicles.json');
+        const fs = new File()
+        let data = fs.fileRead('./vehicles.json');
         let dataBase = Factory.createVehicle(data);
         return dataBase.some(el => {
             return el.policeNumber === vehicle.policeNumber;
@@ -22,9 +13,9 @@ class Model {
     }
 
     static parkingLotAvailabilityCheck() {
-        let data = this.readData('./parking-lot.json');
+        const fs = new File()
+        let data = fs.fileRead('./parking-lot.json');
         let dataBase = Factory.createParkingLot(data);
-        console.log(dataBase)
         for (let i = 0; i < dataBase.length; i++) {
             if (dataBase[i].availability) {
                 return dataBase[i];
@@ -35,27 +26,25 @@ class Model {
 
     static inputCheckIn(data) {
         return new Promise((resolve, reject) => {
+            const fs = new File()
             let parkingLot = this.parkingLotAvailabilityCheck();
             console.log(parkingLot)
             if (parkingLot) {
                 // jangan lupa kasih error udh penuh
                 let newData = {
-                    _policeNumber: data.platNomor,
-                    _color: data.warna,
-                    _type: data.tipe
+                    policeNumber: data.platNomor,
+                    color: data.warna,
+                    type: data.tipe
                 };
                 let vehicle = Factory.createSingleVehicle(newData);
-                console.log(vehicle, 'OKE OKE')
                 if (!this.vehicleExistValidation(vehicle)) {
-                    console.log('NAH LOH')
-                    let vehicles = this.readData('./vehicles.json');
+                    let vehicles = fs.fileRead('./vehicles.json');
                     vehicles.push(vehicle);
-                    this.writeData('./vehicles.json', JSON.stringify(vehicles, null, 2));
+                    fs.fileWrite('./vehicles.json', JSON.stringify(vehicles, null, 2));
                 }
 
                 parkingLot.addVehicle(vehicle);
-                let dBParkingLot = this.readData('./parking-lot.json');
-                console.log(dBParkingLot, '<<<<<<<<<<<')
+                let dBParkingLot = fs.fileRead('./parking-lot.json');
                 let dataParkingLot = Factory.createParkingLot(dBParkingLot);
                 for (let i = 0; i < dataParkingLot.length; i++) {
                     if (parkingLot.id === dataParkingLot[i].id) {
@@ -63,26 +52,94 @@ class Model {
                         break;
                     }
                 }
-                this.writeData('./parking-lot.json', JSON.stringify(dataParkingLot, null, 2));
+                fs.fileWrite('./parking-lot.json', JSON.stringify(dataParkingLot, null, 2));
 
-                console.log(vehicle, 'HOLAAA')
                 let ticket = Factory.createSingleTicket({
-                    _vehicle: vehicle, 
-                    _parkingLot: parkingLot, 
-                    _checkIn: new Date()
+                    vehicle, 
+                    parkingLot, 
+                    checkIn: new Date()
                 });
                 console.log(ticket, 'HAHAHAHAHAH')
-                let dBTicket = this.readData('./parking-lot.json');
-                // let dataTicket = Factory.createTicket(dBTicket);
-                // dataTicket.push(ticket);
-                // this.writeData('./ticket.json', JSON.stringify(dataTicket, null, 2));
+                let dBTicket = fs.fileRead('./tickets.json');
+                let dataTicket = Factory.createTicket(dBTicket);
+                dataTicket.push(ticket);
+                fs.fileWrite('./tickets.json', JSON.stringify(dataTicket, null, 2));
 
                 resolve({
                     platNomor: ticket.vehicle.policeNumber,
                     parkingLot: ticket.parkingLot.id,
-                    tanggalMasuk: ticket.checkIn
+                    tanggalMasuk: moment(ticket.checkIn).format('YYYY-MM-DD hh:mm')
                 })
             }
+        })
+    }
+
+    static inputCheckOut(data) {
+        return new Promise((resolve, reject) => {
+            const fs = new File()
+            let dBTicket = fs.fileRead('./tickets.json');
+            let dBParkingLot = fs.fileRead('./parking-lot.json');
+            let dataTicket = Factory.createTicket(dBTicket);
+            let dataParkingLot = Factory.createParkingLot(dBParkingLot);
+
+            let searchedTicket = dataTicket.filter(el => { return el.policeNumber === data.platNomor && el.checkOut == null })[0];
+            let parkingLot = searchedTicket.parkingLot;
+
+            searchedTicket.checkingOut();
+            parkingLot.removeVehicle();
+
+            for (let i = 0; i < dataTicket.length; i++) {
+                if (dataTicket[i].policeNumber === searchedTicket.policeNumber && dataTicket[i].checkOut == null) {
+                    dataTicket[i] = searchedTicket;
+                    break;
+                }
+            }
+
+            for (let i = 0; i < dataParkingLot.length; i++) {
+                if (dataParkingLot[i].id === parkingLot.id) {
+                    dataParkingLot[i] = parkingLot;
+                    break;
+                }
+            }
+
+            fs.fileWrite('./tickets.json', JSON.stringify(dataTicket, null, 2));
+            fs.fileWrite('./parking-lot.json', JSON.stringify(dataParkingLot, null, 2));
+
+            resolve({
+                platNomor: searchedTicket.policeNumber,
+                tanggalMasuk: moment(searchedTicket.checkIn).format('YYYY-MM-DD hh:mm'),
+                tanggalKeluar: moment(searchedTicket.checkOut).format('YYYY-MM-DD hh:mm'),
+                jumlahBayar: searchedTicket.totalCost
+            })
+        })
+    }
+
+    static queryVehicleCount(data) {
+        return new Promise((resolve, reject) => {
+            const fs = new File();
+            let dBParkingLot = fs.fileRead('./parking-lot.json');
+            let dataParkingLot = Factory.createParkingLot(dBParkingLot);
+            //Jangan lupa error salah keyword
+            let counter = dataParkingLot.filter(el => { return !el.availability && el.parkedVehicle.type === data.tipe }).length;
+            resolve({
+                jumlahKendaraan: counter
+            })
+
+        })
+    }
+
+    static queryVehicleByColor(data) {
+        return new Promise((resolve, reject) => {
+            const fs = new File();
+            let dbVehicle = fs.fileRead('./vehicles.json');
+            let dataVehicles = Factory.createVehicle(dbVehicle);
+            let result = []
+            dataVehicles.forEach(el => { el.color === data.warna ? result.push(el.policeNumber): null })
+
+            resolve({
+                platNomor: result
+            })
+
         })
     }
 }

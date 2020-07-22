@@ -4,5 +4,17 @@
     "_color": "hitam",
     "_type": "SUV",
     "_baseCost": 15000
+  },
+  {
+    "_policeNumber": "B 4312 PO",
+    "_color": "silver",
+    "_type": "MPV",
+    "_baseCost": 20000
+  },
+  {
+    "_policeNumber": "B 2121 ZA",
+    "_color": "hitam",
+    "_type": "MPV",
+    "_baseCost": 20000
   }
 ]
