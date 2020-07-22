@@ -34,5 +34,11 @@
     "_color": "hitam",
     "_type": "SUV",
     "_baseCost": 15000
+  },
+  {
+    "_policeNumber": "F 1142 AE",
+    "_color": "putih",
+    "_type": "MPV",
+    "_baseCost": 20000
   }
 ]

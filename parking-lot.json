@@ -1,13 +1,8 @@
 [
   {
     "_id": "A1",
-    "_availability": false,
-    "_parkedVehicle": {
-      "_policeNumber": "B 1234 KI",
-      "_color": "hitam",
-      "_type": "SUV",
-      "_baseCost": 15000
-    }
+    "_availability": true,
+    "_parkedVehicle": null
   },
   {
     "_id": "A2",
