@@ -5,7 +5,11 @@ class Controller {
         console.log(req.body)
         Model.inputCheckIn(req.body)
         .then(result => {
-            return res.status(201).json(result)
+            if (result.name === 'OutOfSpace') {
+                return res.status(200).json(result)
+            } else {
+                return res.status(201).json(result)
+            }
         })
         .catch(err => {
             return next(err)

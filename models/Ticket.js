@@ -50,12 +50,13 @@ class Ticket {
 
     calculateTotalCost() {
         if (this._checkOut) {
-            const duration = moment.duration(moment(this._checkOut).diff(moment(this._checkIn))).asHours();
+            const duration = Math.floor(moment.duration(moment(this._checkOut).diff(moment(this._checkIn))).asHours());
             if (duration <= 1) {
                 return this._vehicle.baseCost;
             } else {
                 let result = this._vehicle.baseCost;
-                result += ((duration-1) * this._hourlyCost);
+                let addition = (duration - 1) * this._hourlyCost;
+                result += addition;
                 return result;
             }
         } else {
